@@ -1,0 +1,57 @@
+name: enterprisecommerce-lab
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: enterprisecommerce-sqlserver
+    hostname: enterprisecommerce-sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "${MSSQL_PID:-Developer}"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      MSSQL_AGENT_ENABLED: "true"
+    ports:
+      - "${MSSQL_PORT:-1433}:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      - ./backups:/var/opt/mssql/backups
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          SQLCMD=/opt/mssql-tools18/bin/sqlcmd;
+          [ -x $$SQLCMD ] || SQLCMD=/opt/mssql-tools/bin/sqlcmd;
+          $$SQLCMD -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -I -b -Q "SELECT 1" >/dev/null || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 40
+      start_period: 30s
+    networks:
+      - enterprise-lab
+
+  db-deploy:
+    image: mcr.microsoft.com/mssql-tools
+    environment:
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      DB_NAME: "${DB_NAME:-EnterpriseCommerce}"
+      APP_LOGIN_PASSWORD: "${APP_LOGIN_PASSWORD}"
+      REPORT_LOGIN_PASSWORD: "${REPORT_LOGIN_PASSWORD}"
+    volumes:
+      - ./sql:/sql:ro
+      - ./scripts:/scripts:ro
+      - ./tests:/tests:ro
+      - ./logs:/logs
+    entrypoint: ["/bin/bash", "/scripts/deploy.sh"]
+    networks:
+      - enterprise-lab
+    restart: "no"
+
+volumes:
+  sqlserver-data:
+    name: enterprisecommerce-sqlserver-data
+
+networks:
+  enterprise-lab:
+    name: enterprisecommerce-lab-network
+    driver: bridge
