@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+apt-get update
+apt-get install -y docker.io postgresql-client jq
+systemctl enable --now docker
+mkdir -p /opt/transplant-dms/sqlserver-data /opt/transplant-dms/sqlserver-backup
+chmod 777 /opt/transplant-dms/sqlserver-data /opt/transplant-dms/sqlserver-backup
+docker run -d --name sqlserver --restart unless-stopped \
+  -e ACCEPT_EULA=Y \
+  -e MSSQL_PID=Developer \
+  -e MSSQL_SA_PASSWORD='${sqlserver_password}' \
+  -e MSSQL_AGENT_ENABLED=true \
+  -p 1433:1433 \
+  -v /opt/transplant-dms/sqlserver-data:/var/opt/mssql/data \
+  -v /opt/transplant-dms/sqlserver-backup:/var/opt/mssql/backup \
+  mcr.microsoft.com/mssql/server:2022-latest

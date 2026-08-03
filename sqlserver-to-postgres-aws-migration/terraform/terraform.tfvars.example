@@ -1,0 +1,14 @@
+aws_region   = "us-west-2"
+project_name = "transplant-dms-lab"
+admin_cidr   = "203.0.113.10/32"
+ec2_key_name = "my-existing-key-pair"
+
+sqlserver_password = "ChangeMe-SqlServer-Strong!123"
+postgres_password  = "ChangeMe-Postgres-Strong!123"
+
+sqlserver_instance_type = "t3.large"
+dms_instance_class      = "dms.t3.medium"
+postgres_instance_class = "db.t4g.medium"
+postgres_engine_version = "16"
+postgres_allocated_storage = 50
+multi_az = false

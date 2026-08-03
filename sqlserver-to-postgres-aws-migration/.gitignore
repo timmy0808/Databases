@@ -1,0 +1,15 @@
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+*.pyc
+reports/*.json
+reports/*.csv
+terraform/.terraform/
+terraform/terraform.tfvars
+terraform/*.tfstate*
+transplant-dms-lab-key.pem
+
+# Local evidence captures that expose the live EC2 endpoint
+docs/images/SQL Server results.jpg
+docs/images/SQL Server Transplant Case Table.jpg
