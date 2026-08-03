@@ -1,0 +1,38 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: migrationlab-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${MSSQL_PASSWORD:-ChangeMe_StrongPassword123!}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P '$$MSSQL_SA_PASSWORD' -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  postgres:
+    image: postgres:16
+    container_name: migrationlab-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE:-transplant_diagnostics}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DATABASE:-transplant_diagnostics}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  sqlserver_data:
+  postgres_data:

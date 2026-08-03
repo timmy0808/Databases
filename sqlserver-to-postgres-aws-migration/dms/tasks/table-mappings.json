@@ -1,0 +1,59 @@
+{
+  "rules": [
+    {"rule-type":"selection","rule-id":"100","rule-name":"clinical-tables","object-locator":{"schema-name":"clinical","table-name":"%"},"rule-action":"include"},
+    {"rule-type":"selection","rule-id":"110","rule-name":"audit-tables","object-locator":{"schema-name":"audit","table-name":"%"},"rule-action":"include"},
+    {"rule-type":"transformation","rule-id":"200","rule-name":"clinical-schema","rule-target":"schema","object-locator":{"schema-name":"clinical"},"rule-action":"convert-lowercase"},
+    {"rule-type":"transformation","rule-id":"210","rule-name":"audit-schema","rule-target":"schema","object-locator":{"schema-name":"audit"},"rule-action":"convert-lowercase"},
+
+    {"rule-type":"transformation","rule-id":"300","rule-name":"patient-table","rule-target":"table","object-locator":{"schema-name":"clinical","table-name":"Patient"},"rule-action":"rename","value":"patient"},
+    {"rule-type":"transformation","rule-id":"301","rule-name":"donor-table","rule-target":"table","object-locator":{"schema-name":"clinical","table-name":"Donor"},"rule-action":"rename","value":"donor"},
+    {"rule-type":"transformation","rule-id":"302","rule-name":"transplant-case-table","rule-target":"table","object-locator":{"schema-name":"clinical","table-name":"TransplantCase"},"rule-action":"rename","value":"transplant_case"},
+    {"rule-type":"transformation","rule-id":"303","rule-name":"diagnostic-result-table","rule-target":"table","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult"},"rule-action":"rename","value":"diagnostic_result"},
+    {"rule-type":"transformation","rule-id":"304","rule-name":"audit-event-table","rule-target":"table","object-locator":{"schema-name":"audit","table-name":"AuditEvent"},"rule-action":"rename","value":"audit_event"},
+
+    {"rule-type":"transformation","rule-id":"400","rule-name":"patient-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"PatientId"},"rule-action":"rename","value":"patient_id"},
+    {"rule-type":"transformation","rule-id":"401","rule-name":"patient-external-key","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"ExternalPatientKey"},"rule-action":"rename","value":"external_patient_key"},
+    {"rule-type":"transformation","rule-id":"402","rule-name":"patient-birth-year","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"BirthYear"},"rule-action":"rename","value":"birth_year"},
+    {"rule-type":"transformation","rule-id":"403","rule-name":"patient-blood-type","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"BloodType"},"rule-action":"rename","value":"blood_type"},
+    {"rule-type":"transformation","rule-id":"404","rule-name":"patient-created-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"CreatedAt"},"rule-action":"rename","value":"created_at"},
+    {"rule-type":"transformation","rule-id":"405","rule-name":"patient-updated-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"UpdatedAt"},"rule-action":"rename","value":"updated_at"},
+    {"rule-type":"transformation","rule-id":"406","rule-name":"patient-version","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Patient","column-name":"VersionNumber"},"rule-action":"rename","value":"version_number"},
+
+    {"rule-type":"transformation","rule-id":"410","rule-name":"donor-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"DonorId"},"rule-action":"rename","value":"donor_id"},
+    {"rule-type":"transformation","rule-id":"411","rule-name":"donor-external-key","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"ExternalDonorKey"},"rule-action":"rename","value":"external_donor_key"},
+    {"rule-type":"transformation","rule-id":"412","rule-name":"donor-type","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"DonorType"},"rule-action":"rename","value":"donor_type"},
+    {"rule-type":"transformation","rule-id":"413","rule-name":"donor-blood-type","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"BloodType"},"rule-action":"rename","value":"blood_type"},
+    {"rule-type":"transformation","rule-id":"414","rule-name":"donor-created-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"CreatedAt"},"rule-action":"rename","value":"created_at"},
+    {"rule-type":"transformation","rule-id":"415","rule-name":"donor-updated-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"UpdatedAt"},"rule-action":"rename","value":"updated_at"},
+    {"rule-type":"transformation","rule-id":"416","rule-name":"donor-version","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"Donor","column-name":"VersionNumber"},"rule-action":"rename","value":"version_number"},
+
+    {"rule-type":"transformation","rule-id":"420","rule-name":"case-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"TransplantCaseId"},"rule-action":"rename","value":"transplant_case_id"},
+    {"rule-type":"transformation","rule-id":"421","rule-name":"case-patient-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"PatientId"},"rule-action":"rename","value":"patient_id"},
+    {"rule-type":"transformation","rule-id":"422","rule-name":"case-donor-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"DonorId"},"rule-action":"rename","value":"donor_id"},
+    {"rule-type":"transformation","rule-id":"423","rule-name":"case-organ-type","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"OrganType"},"rule-action":"rename","value":"organ_type"},
+    {"rule-type":"transformation","rule-id":"424","rule-name":"case-status","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"CaseStatus"},"rule-action":"rename","value":"case_status"},
+    {"rule-type":"transformation","rule-id":"425","rule-name":"case-transplant-date","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"TransplantDate"},"rule-action":"rename","value":"transplant_date"},
+    {"rule-type":"transformation","rule-id":"426","rule-name":"case-created-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"CreatedAt"},"rule-action":"rename","value":"created_at"},
+    {"rule-type":"transformation","rule-id":"427","rule-name":"case-updated-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"UpdatedAt"},"rule-action":"rename","value":"updated_at"},
+    {"rule-type":"transformation","rule-id":"428","rule-name":"case-version","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"TransplantCase","column-name":"VersionNumber"},"rule-action":"rename","value":"version_number"},
+
+    {"rule-type":"transformation","rule-id":"440","rule-name":"result-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"DiagnosticResultId"},"rule-action":"rename","value":"diagnostic_result_id"},
+    {"rule-type":"transformation","rule-id":"441","rule-name":"result-case-id","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"TransplantCaseId"},"rule-action":"rename","value":"transplant_case_id"},
+    {"rule-type":"transformation","rule-id":"442","rule-name":"result-type","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"ResultType"},"rule-action":"rename","value":"result_type"},
+    {"rule-type":"transformation","rule-id":"443","rule-name":"result-value","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"ResultValue"},"rule-action":"rename","value":"result_value"},
+    {"rule-type":"transformation","rule-id":"444","rule-name":"result-unit","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"ResultUnit"},"rule-action":"rename","value":"result_unit"},
+    {"rule-type":"transformation","rule-id":"445","rule-name":"result-abnormal","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"IsAbnormal"},"rule-action":"rename","value":"is_abnormal"},
+    {"rule-type":"transformation","rule-id":"446","rule-name":"result-payload","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"DiagnosticPayload"},"rule-action":"rename","value":"diagnostic_payload"},
+    {"rule-type":"transformation","rule-id":"447","rule-name":"result-recorded-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"RecordedAt"},"rule-action":"rename","value":"recorded_at"},
+    {"rule-type":"transformation","rule-id":"448","rule-name":"result-updated-at","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"UpdatedAt"},"rule-action":"rename","value":"updated_at"},
+    {"rule-type":"transformation","rule-id":"449","rule-name":"result-version","rule-target":"column","object-locator":{"schema-name":"clinical","table-name":"DiagnosticResult","column-name":"VersionNumber"},"rule-action":"rename","value":"version_number"},
+
+    {"rule-type":"transformation","rule-id":"460","rule-name":"audit-id","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"AuditEventId"},"rule-action":"rename","value":"audit_event_id"},
+    {"rule-type":"transformation","rule-id":"461","rule-name":"audit-entity-type","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"EntityType"},"rule-action":"rename","value":"entity_type"},
+    {"rule-type":"transformation","rule-id":"462","rule-name":"audit-entity-id","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"EntityId"},"rule-action":"rename","value":"entity_id"},
+    {"rule-type":"transformation","rule-id":"463","rule-name":"audit-action-type","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"ActionType"},"rule-action":"rename","value":"action_type"},
+    {"rule-type":"transformation","rule-id":"464","rule-name":"audit-actor-key","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"ActorKey"},"rule-action":"rename","value":"actor_key"},
+    {"rule-type":"transformation","rule-id":"465","rule-name":"audit-payload","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"EventPayload"},"rule-action":"rename","value":"event_payload"},
+    {"rule-type":"transformation","rule-id":"466","rule-name":"audit-occurred-at","rule-target":"column","object-locator":{"schema-name":"audit","table-name":"AuditEvent","column-name":"OccurredAt"},"rule-action":"rename","value":"occurred_at"}
+  ]
+}
